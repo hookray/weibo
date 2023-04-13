@@ -3,6 +3,7 @@ module.exports = {
     name: "weibo",
     script: 'dist/main.js',
     watch: [],
+    cwd:"./",
     env: {
       "PORT": 3001,
     }
