@@ -4,6 +4,7 @@ import axios from "axios";
 import ioredis from "ioredis";
 import TelegramBot from "node-telegram-bot-api";
 
+
 export const redis = new ioredis();
 export let bot: TelegramBot;
 axios.get(`https://weibo.hookray.com`)

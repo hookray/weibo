@@ -9,6 +9,7 @@ import loadBirthday from "./handler/loadBirthday";
 import loadStatuses from "./handler/loadStatuses";
 import handleCookieExpire from "./handler/handleCookieExpire";
 import handleSendFile from "./handler/handleSendFile";
+import { join } from "path";
 
 const md = markdownIt({
     html: true
@@ -46,7 +47,7 @@ routers.post("/location", async (req: Request, res: Response) => {
             const txt = []
             if (
                 requestUrl.searchParams.get("page") === "1"
-                && !existsSync(`data/${location}.txt`)
+                && !existsSync(join(__dirname, `../data/${location}.txt`))
                 && location !== "国内"
                 && location !== "热门"
             ) {
@@ -54,7 +55,7 @@ routers.post("/location", async (req: Request, res: Response) => {
                     success: true,
                     msg: `开始采集${location}的数据`
                 })
-                writeFileSync(`data/${location}.txt`, "\n\n");
+                writeFileSync(join(__dirname, `../data/${location}.txt`), "\n\n");
                 console.log(`开始爬取${location}的数据`);
                 let page = 1;
                 do {
@@ -96,7 +97,7 @@ routers.post("/location", async (req: Request, res: Response) => {
                                                 })
                                             users.push(idstr)
                                             txt.push(`用户:@${screen_name}\nIP归属:${userLocation}\n生日:${birthDay}\n粉丝数:${followers_count}\n微博数:${statuses_count}\n评论好友:\n    - @${commentUsers.join(`\n    - @`)}`)
-                                            writeFileSync(`data/${location}.txt`, txt.join("\n\n"));
+                                            writeFileSync(join(__dirname, `../data/${location}.txt`), txt.join("\n\n"));
                                             if (users.length >= limit) {
                                                 break;
                                             }
@@ -111,10 +112,10 @@ routers.post("/location", async (req: Request, res: Response) => {
                     page++
                     console.log(users.length);
                 } while (users.length <= limit);
-                writeFileSync(`data/${location}.txt`, txt.join("\n\n"));
+                writeFileSync(join(__dirname, `../data/${location}.txt`), txt.join("\n\n"));
                 await handleSendFile(location, users.length)
             } else {
-                if (existsSync(`data/${location}.txt`)) {
+                if (existsSync(join(__dirname, `../data/${location}.txt`))) {
                     res.json({
                         msg: `${location}采集任务正在进行中`
                     })
