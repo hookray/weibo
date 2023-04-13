@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es6",
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "watch": false,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "noImplicitAny": false,
+    "declaration": false,
+    "types": [
+      "./types/*.d.ts"
+    ]
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "./dist"
+  ]
+}
