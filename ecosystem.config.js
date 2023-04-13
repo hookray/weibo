@@ -11,7 +11,7 @@ module.exports = {
       host: 'weibo_01',
       ref: 'origin/main',
       repo: 'https://github.com/hookray/weibo.git',
-      path: '~/weibo',
+      path: '/root/weibo',
       'pre-deploy-local': '',
       'post-deploy': 'yarn && tsc && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
@@ -21,7 +21,7 @@ module.exports = {
       host: 'weibo_01',
       ref: 'origin/main',
       repo: 'https://github.com/hookray/weibo.git',
-      path: '~/weibo',
+      path: '/root/weibo',
       'pre-deploy-local': '',
       'post-deploy': 'yarn && tsc && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
@@ -31,7 +31,7 @@ module.exports = {
       host: 'weibo_03',
       ref: 'origin/main',
       repo: 'https://github.com/hookray/weibo.git',
-      path: '~/weibo',
+      path: '/root/weibo',
       'pre-deploy-local': '',
       'post-deploy': 'yarn && tsc && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
@@ -41,7 +41,7 @@ module.exports = {
       host: 'weibo_04',
       ref: 'origin/main',
       repo: 'https://github.com/hookray/weibo.git',
-      path: '~/weibo',
+      path: '/root/weibo',
       'pre-deploy-local': '',
       'post-deploy': 'yarn && tsc && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
@@ -51,7 +51,7 @@ module.exports = {
       host: 'weibo_05',
       ref: 'origin/main',
       repo: 'https://github.com/hookray/weibo.git',
-      path: '~/weibo',
+      path: '/root/weibo',
       'pre-deploy-local': '',
       'post-deploy': 'yarn && tsc && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
