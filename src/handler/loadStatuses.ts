@@ -77,7 +77,7 @@ export default async function loadStatuses(moreLink: string, idstr: string) {
             }
             max++
             await Delay(1)
-        } while (comments.size < 3 || max < 10);
+        } while (comments.size < 3 && max < 10);
         return Array.from(comments)
     } catch (error) {
         return Array.from(comments)
