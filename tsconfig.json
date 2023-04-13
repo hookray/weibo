@@ -11,10 +11,7 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "noImplicitAny": false,
-    "declaration": false,
-    "types": [
-      "./types/*.d.ts"
-    ]
+    "declaration": false
   },
   "include": [
     "src/**/*"
