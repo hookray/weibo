@@ -18,7 +18,7 @@ module.exports = {
     },
     weibo_02: {
       user: 'root',
-      host: 'weibo_01',
+      host: 'weibo_02',
       ref: 'origin/main',
       repo: 'https://github.com/hookray/weibo.git',
       path: '/root/weibo',
