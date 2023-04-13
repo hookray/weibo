@@ -3,6 +3,7 @@ module.exports = {
     name: "weibo",
     script: 'dist/main.js',
     watch: [],
+    ignore_watch: ["node_modules", "logs", "dist","data"],
     cwd:"./",
     env: {
       "PORT": 3001,

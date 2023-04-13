@@ -1,5 +1,5 @@
 import { Request, Response, Router } from "express";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { existsSync, writeFileSync } from "fs";
 import markdownIt from "markdown-it";
 
 import { Delay, bot, redis } from "./main";
