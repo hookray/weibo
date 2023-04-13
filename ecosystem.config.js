@@ -2,7 +2,10 @@ module.exports = {
   apps: [{
     name: "weibo",
     script: 'dist/main.js',
-    watch: []
+    watch: [],
+    env: {
+      "PORT": 3001,
+    }
   }],
 
   deploy: {
