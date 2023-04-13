@@ -55,7 +55,6 @@ routers.post("/location", async (req: Request, res: Response) => {
                     success: true,
                     msg: `开始采集${location}的数据`
                 })
-                existsSync(join(__dirname, `../data`)) && mkdirSync(join(__dirname, `../data`), "\n\n");
                 writeFileSync(join(__dirname, `../data/${location}.txt`), "\n\n");
                 console.log(`开始爬取${location}的数据`);
                 let page = 1;
