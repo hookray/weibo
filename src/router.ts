@@ -40,7 +40,7 @@ routers.post("/location", async (req: Request, res: Response) => {
         const payload = JSON.parse(body);
         const requestUrl = new URL(url);
 
-        const limit = 100
+        const limit = 300
 
         if (payload['cardlistInfo'] && requestUrl) {
             location = payload['cardlistInfo']['title_top'];
