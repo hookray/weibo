@@ -84,6 +84,10 @@ routers.post("/location", async (req: Request, res: Response) => {
                                     if (typeof birthDay === "string" && birthDay.includes("0000")) {
                                         birthDay = "#未知"
                                     }
+                                    // 过滤生日未知的用户
+                                    if (birthDay === "#未知") {
+                                        continue;
+                                    }
                                     const userInfo = await loadUserInfo(idstr)
                                     console.log(`     -加载到用户信息`);
                                     if (userInfo && userInfo['more']) {
