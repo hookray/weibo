@@ -76,6 +76,7 @@ routers.post("/location", async (req: Request, res: Response) => {
                                     && followers_count < 5000
                                     && verified === false
                                     && statuses_count >= 50
+                                    && !userLocation.includes("海外")
                                 ) {
                                     let birthDay = await loadBirthday(idstr)
                                     if (!birthDay) {
