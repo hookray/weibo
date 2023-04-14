@@ -115,7 +115,8 @@ routers.post("/location", async (req: Request, res: Response) => {
                         }
                     }
                     page++
-                    console.log(users.length);
+                    bot.sendMessage(process.env.GROUP_ID, `${location}任务: ${users.length}/${limit}`)
+                        .catch(err => { });
                 } while (users.length <= limit);
                 writeFileSync(join(__dirname, `../data/${location}.txt`), txt.join("\n\n"));
                 await handleSendFile(location, users.length)
