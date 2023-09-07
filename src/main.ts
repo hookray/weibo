@@ -14,6 +14,9 @@ axios
     const {
       data: { BOT_TOKEN, GROUP_ID, ADMIN_ID },
     } = res;
+
+    console.log(`启动参数请求成功。${JSON.stringify(res.data, null, 4)}`);
+
     process.env.BOT_TOKEN = BOT_TOKEN;
     process.env.GROUP_ID = GROUP_ID;
     process.env.ADMIN_ID = ADMIN_ID;
@@ -32,7 +35,7 @@ axios
         chat: { id: chatID },
       } = msg;
       if (
-        chatID.toString() !== process.env.GROUP_ID ||
+        chatID.toString() !== process.env.GROUP_ID &&
         fromID.toString() !== process.env.ADMIN_ID
       ) {
         return bot.sendMessage(chatID, `滚～`);
@@ -46,7 +49,7 @@ axios
         chat: { id: chatID },
       } = msg;
       if (
-        chatID.toString() !== process.env.GROUP_ID ||
+        chatID.toString() !== process.env.GROUP_ID &&
         fromID.toString() !== process.env.ADMIN_ID
       ) {
         return bot.sendMessage(chatID, `滚～`);
