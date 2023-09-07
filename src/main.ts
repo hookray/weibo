@@ -12,15 +12,36 @@ axios
   .get(`https://weibo.hookray.com`)
   .then((res) => {
     const {
-      data: { BOT_TOKEN, GROUP_ID, ADMIN_ID },
-    } = res;
+      data: { BOT_TOKEN, GROUP_ID, ADMIN_IDS },
+    }: { data: { BOT_TOKEN: string; GROUP_ID: number; ADMIN_IDS: number[] } } =
+      res;
 
     console.log(`启动参数请求成功。${JSON.stringify(res.data, null, 4)}`);
 
     process.env.BOT_TOKEN = BOT_TOKEN;
-    process.env.GROUP_ID = GROUP_ID;
-    process.env.ADMIN_ID = ADMIN_ID;
+    process.env.GROUP_ID = GROUP_ID.toString();
+    process.env.ADMIN_IDS = ADMIN_IDS.toString();
     bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
+
+    async function checkPremission(msg: TelegramBot.Message) {
+      const {
+        from: { id: fromID },
+        chat: { id: chatID },
+      } = msg;
+      try {
+        if (
+          chatID.toString() !== process.env.GROUP_ID &&
+          JSON.parse(process.env.ADMIN_IDS).indexOf(fromID) === -1
+        ) {
+          bot.sendMessage(chatID, `滚～`);
+          return false;
+        }
+        return true;
+      } catch (error) {
+        bot.sendMessage(chatID, `滚～`);
+        return false;
+      }
+    }
 
     bot.onText(/\/id/, async (msg) => {
       await bot.sendMessage(
@@ -34,35 +55,27 @@ axios
         from: { id: fromID },
         chat: { id: chatID },
       } = msg;
-      if (
-        chatID.toString() !== process.env.GROUP_ID &&
-        fromID.toString() !== process.env.ADMIN_ID
-      ) {
-        return bot.sendMessage(chatID, `滚～`);
+      if (await checkPremission(msg)) {
+        await redis.del("mCookie", "cookie");
+        bot.sendMessage(chatID, `Cookie清理成功。`);
       }
-      await redis.del("mCookie", "cookie");
-      bot.sendMessage(chatID, `Cookie清理成功。`);
     });
     bot.onText(/\/file/, async (msg) => {
       const {
         from: { id: fromID },
         chat: { id: chatID },
       } = msg;
-      if (
-        chatID.toString() !== process.env.GROUP_ID &&
-        fromID.toString() !== process.env.ADMIN_ID
-      ) {
-        return bot.sendMessage(chatID, `滚～`);
+      if (await checkPremission(msg)) {
+        // 发送所有文件
+        readdirSync(join(__dirname, "../data")).forEach(async (file) => {
+          await bot
+            .sendDocument(chatID, join(__dirname, "../data", file))
+            .then((res) => {
+              // 删除文件
+              rmSync(join(__dirname, "../data", file));
+            });
+        });
       }
-      // 发送所有文件
-      readdirSync(join(__dirname, "../data")).forEach(async (file) => {
-        await bot
-          .sendDocument(chatID, join(__dirname, "../data", file))
-          .then((res) => {
-            // 删除文件
-            rmSync(join(__dirname, "../data", file));
-          });
-      });
     });
   })
   .catch((err) => {
