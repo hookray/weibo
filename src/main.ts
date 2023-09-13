@@ -30,6 +30,8 @@ axios
       } = msg;
       try {
         const ADMIN_IDS = JSON.parse(process.env.ADMIN_IDS);
+        console.log(ADMIN_IDS);
+
         if (
           chatID.toString() !== process.env.GROUP_ID &&
           !ADMIN_IDS.includes(fromID)
@@ -39,6 +41,8 @@ axios
         }
         return true;
       } catch (error) {
+        console.log(error.message);
+
         bot.sendMessage(chatID, `滚～`);
         return false;
       }
