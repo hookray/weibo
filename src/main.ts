@@ -17,7 +17,6 @@ axios
       res;
 
     console.log(`启动参数请求成功。${JSON.stringify(res.data, null, 4)}`);
-
     process.env.BOT_TOKEN = BOT_TOKEN;
     process.env.GROUP_ID = GROUP_ID.toString();
     process.env.ADMIN_IDS = ADMIN_IDS.toString();
@@ -29,6 +28,8 @@ axios
         chat: { id: chatID },
       } = msg;
       try {
+        console.log(process.env.ADMIN_IDS);
+        
         const ADMIN_IDS = JSON.parse(process.env.ADMIN_IDS);
         console.log(ADMIN_IDS);
 
