@@ -28,11 +28,9 @@ axios
         chat: { id: chatID },
       } = msg;
       try {
-        console.log(process.env.ADMIN_IDS);
-        
-        const ADMIN_IDS = JSON.parse(process.env.ADMIN_IDS);
-        console.log(ADMIN_IDS);
-
+        const ADMIN_IDS = process.env.ADMIN_IDS.split(",").map((id) =>
+          parseInt(id)
+        );
         if (
           chatID.toString() !== process.env.GROUP_ID &&
           !ADMIN_IDS.includes(fromID)
