@@ -29,9 +29,10 @@ axios
         chat: { id: chatID },
       } = msg;
       try {
+        const ADMIN_IDS = JSON.parse(process.env.ADMIN_IDS);
         if (
           chatID.toString() !== process.env.GROUP_ID &&
-          JSON.parse(process.env.ADMIN_IDS).indexOf(fromID) === -1
+          !ADMIN_IDS.includes(fromID)
         ) {
           bot.sendMessage(chatID, `滚～`);
           return false;
